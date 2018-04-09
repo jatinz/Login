@@ -23,7 +23,6 @@
 <body>
   <div class="container">
     <div class="col-md-12">
-      <div class="row top-gap"><div class="col-md-12">fxv </div></div>
       <div class="row">
         <div class="col-md-3"> </div>
         <div class="col-md-5">
