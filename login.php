@@ -16,6 +16,7 @@
       width:100%;
       position:absolute;
       background: #eee;
+      color:#f0f0f0;
     }
   </style>
 </head>
@@ -41,6 +42,11 @@
           <button type="submit" name="loginButton" class="btn btn-default">Login</button>
         </form>
       </div>
+      <div class="top-gap"> 
+        <div class="col-md-6"> 
+          <b> Login Testing </b>
+        </div>
+      </div>
       </div>
       </div>
   </div>
@@ -49,6 +55,23 @@
 </html>
 
 <?php
+
+  class Connection{
+
+    function getConnection(){
+      
+      $location = "127.0.0.1";
+      $user = "root123";
+      $password = "root123"
+
+      $conn = mysqli_connect($location,$user,$password,"login");
+      if(!$conn)
+        print "--- Unable To Connect To Database.";
+      else
+        return $conn;
+    }
+  
+  }
 
   class Employee{
 
@@ -62,8 +85,34 @@
     }
 
     function getFormData(){
+
       $uEmail = filterUserData($_POST['email']);
       $uPassword = filterUserData($_POST['password']);
+
+      $isAuthenticUser = authenticate($uEmail,$uPassword);
+      if($isAuthenticUser){
+          print "Welcome.";
+      }
+      else
+        notAAuthenticUser();
+ 
+    }
+
+    function authenticate($uEmail,$uPassword){
+
+      $connection = new Connection();
+      $conn = $connection->getConnection();
+      $result = $conn->query("SELECT * FROM login WHERE EMAIL='".$uEmail."' AND PASSWORD='".$uPassword."' ");
+      if($result->num_rows > 0){
+        return true;
+      }
+      else
+        return false;
+        
+    }
+
+    function notAAuthenticUser(){
+      print "Invalid User Id/Password.";
     }
 
   }
