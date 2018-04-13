@@ -35,8 +35,7 @@ class Main{
     }
 
     $Connection = new Connection();
-    $con = $Connection->getConnection();
-    $result = $con->query($query);
+    $result = $Connection->getConnection()->query($query);
     if($result->num_rows > 0){
       while($row=$result->fetch_assoc()){
         print $row["Id"]."-".$row["Name"]."-".$row["email"];
